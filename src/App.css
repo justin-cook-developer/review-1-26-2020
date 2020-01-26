@@ -2,6 +2,30 @@
   text-align: center;
 }
 
+.App ul {
+  list-style: none;
+}
+
+.App ul li {
+  border: 3px black solid;
+}
+
+.form-group {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group label {
+  display: block;
+  margin-right: 3px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

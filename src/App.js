@@ -1,24 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+
+import CreatePost from "./CreatePost";
+import { fetchInitialPosts, deletePost } from "./api";
+
+import "./App.css";
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+  // useEffect's cb can only return a function
+  useEffect(() => {
+    fetchInitialPosts().then((posts) => {
+      setPosts(posts);
+    });
+  }, []);
+
+  const addPost = (post) => {
+    setPosts([...posts, post]);
+  };
+
+  const removePost = (postId) => {
+    setPosts(posts.filter((_post) => _post.id !== postId));
+  };
+
+  const createDeletePost = (post) => () => {
+    deletePost(post.id).then((success) => {
+      if (success) {
+        removePost(post.id);
+      }
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Posts</h1>
+      <CreatePost addPost={addPost} />
+      <ul>
+        {posts.map((post) => {
+          return (
+            <li key={post.id} className="mb-5">
+              <h2>{post.title}</h2>
+              <p>{post.body}</p>
+              <p>
+                <button onClick={createDeletePost(post)}>Delete me</button>
+              </p>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
