@@ -31,3 +31,7 @@ Probably a list of comments.
 
 Use this endpoint to get the comments for each post: https://jsonplaceholder.typicode.com/posts/1/comments
 The format is /posts/:postId/comments.
+
+
+### Big reach: Adding comments to a post
+In SinglePost, create a form that allows you to add comments to the post.
